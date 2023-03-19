@@ -1,0 +1,24 @@
+# spring config
+spring:
+  # hibernate config
+  jpa:
+    properties:
+      hibernate:
+        dialect: ${HIBERNATE_DIALECT}
+    hibernate:
+      naming:
+        physical-strategy: ${HIBERNATE_NAMING}
+
+  # datasource config
+  datasource:
+    driver-class-name: ${DATASOURCE_DRIVER_CLASS}
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+
+# cloudinary
+cloudinary:
+  cloudName: ${CLOUDINARY_NAME}
+  apiKey: ${CLOUDINARY_API_KEY}
+  apiSecret: ${CLOUDINARY_API_SECRET}
+  secure: ${CLOUDINARY_SECURE}
