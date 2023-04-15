@@ -72,8 +72,8 @@ public class CommentUpdateService extends BaseService<IBaseRequest, IBaseRespons
             );
         }
 
-        final Map<String, String> currentAccountInfo = SecurityUtils.getCurrentAccount(rabbitTemplate);
-        final int userId = Integer.parseInt(currentAccountInfo.get("userId"));
+        final int userId = SecurityUtils.getCurrentAccount(rabbitTemplate).getUserId();
+
         final CommentOwnerCheckRequest commentOwnerCheckRequest = new CommentOwnerCheckRequest()
                 .setCommentId(commentEntity.getId())
                 .setUserId(userId);

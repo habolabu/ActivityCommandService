@@ -2,7 +2,7 @@
 server:
   port: ${SERVER_PORT:8121}
   servlet:
-    context-path: ${CONTEXT_PATH:/activity/command/api}
+    context-path: ${SERVER_CONTEXT_PATH:/activity/command/api}
 
 # spring config
 spring:
@@ -45,7 +45,3 @@ cloudinary:
   apiKey: ${CLOUDINARY_API_KEY:979314734532517}
   apiSecret: ${CLOUDINARY_API_SECRET:DCGohkxvvu85jQcSiXp_thMzTsw}
   secure: ${CLOUDINARY_SECURE:true}
-
-logging:
-  level:
-    root: debug

@@ -22,8 +22,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -76,8 +74,7 @@ public class CommentDeleteService extends BaseService<IBaseRequest, IBaseRespons
             );
         }
 
-        final Map<String, String> currentAccountInfo = SecurityUtils.getCurrentAccount(rabbitTemplate);
-        final int userId = Integer.parseInt(currentAccountInfo.get("userId"));
+        final int userId =  SecurityUtils.getCurrentAccount(rabbitTemplate).getUserId();
         final CommentOwnerCheckRequest commentOwnerCheckRequest = new CommentOwnerCheckRequest()
                 .setCommentId(commentDeleteRequest.getId())
                 .setUserId(userId);

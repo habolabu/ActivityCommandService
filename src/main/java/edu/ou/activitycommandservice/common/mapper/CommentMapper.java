@@ -65,7 +65,6 @@ public abstract class CommentMapper {
      */
     @Named("currentUserToUserId")
     int getCurrentUserId() {
-        Map<String, String> accountInfo = SecurityUtils.getCurrentAccount(rabbitTemplate);
-        return Integer.parseInt(accountInfo.get("userId"));
+        return SecurityUtils.getCurrentAccount(rabbitTemplate).getUserId();
     }
 }
