@@ -7,6 +7,7 @@ import edu.ou.activitycommandservice.data.entity.PostEntity;
 import edu.ou.activitycommandservice.data.pojo.request.comment.CommentAddRequest;
 import edu.ou.coreservice.common.constant.Message;
 import edu.ou.coreservice.common.exception.BusinessException;
+import edu.ou.coreservice.common.util.SecurityUtils;
 import edu.ou.coreservice.common.validate.ValidValidation;
 import edu.ou.coreservice.data.pojo.request.base.IBaseRequest;
 import edu.ou.coreservice.data.pojo.response.base.IBaseResponse;
@@ -63,7 +64,7 @@ public class CommentAddService extends BaseService<IBaseRequest, IBaseResponse> 
     protected IBaseResponse doExecute(IBaseRequest request) {
         final CommentEntity commentEntity = commentMapper.fromCommentAddRequest((CommentAddRequest) request);
 
-        if (postCheckExistByIdRepository.execute(commentEntity.getPostId())) {
+        if (!postCheckExistByIdRepository.execute(commentEntity.getPostId())) {
             throw new BusinessException(
                     CodeStatus.NOT_FOUND,
                     Message.Error.NOT_FOUND,
@@ -74,7 +75,9 @@ public class CommentAddService extends BaseService<IBaseRequest, IBaseResponse> 
         }
 
         final int commentId = commentAddRepository.execute(commentEntity);
+        final int userId = SecurityUtils.getCurrentAccount(rabbitTemplate).getUserId();
         commentEntity.setId(commentId);
+        commentEntity.setUserId(userId);
 
         rabbitTemplate.convertSendAndReceive(
                 CommentAddQueueI.EXCHANGE,
