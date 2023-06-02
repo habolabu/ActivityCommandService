@@ -32,7 +32,8 @@ public class EmotionAddController {
      */
     @PreAuthorize(SecurityPermission.ADD_NEW_EMOTION)
     @PostMapping(
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<IBaseResponse> addNewEmotion(
             @Validated
