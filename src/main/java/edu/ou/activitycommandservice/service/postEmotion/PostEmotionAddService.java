@@ -70,9 +70,10 @@ public class PostEmotionAddService extends BaseService<IBaseRequest, IBaseRespon
                 .fromPostEmotionAddRequest((PostEmotionAddRequest) request);
         final PostEmotionEntityPK postEmotionEntityPK = new PostEmotionEntityPK()
                 .setPostId(postEmotionEntity.getPostId())
-                .setUserId(postEmotionEntity.getUserId());
+                .setUserId(postEmotionEntity.getUserId())
+                .setEmotionId(postEmotionEntity.getEmotionId());
 
-        if (postCheckExistByIdRepository.execute(postEmotionEntityPK.getPostId())) {
+        if (postCheckExistByIdRepository.execute(postEmotionEntity.getPostId())) {
             throw new BusinessException(
                     CodeStatus.NOT_FOUND,
                     Message.Error.NOT_FOUND,
@@ -82,7 +83,7 @@ public class PostEmotionAddService extends BaseService<IBaseRequest, IBaseRespon
             );
         }
 
-        if (emotionCheckExistByIdRepository.execute(postEmotionEntityPK.getEmotionId())) {
+        if (emotionCheckExistByIdRepository.execute(postEmotionEntity.getEmotionId())) {
             throw new BusinessException(
                     CodeStatus.NOT_FOUND,
                     Message.Error.NOT_FOUND,
